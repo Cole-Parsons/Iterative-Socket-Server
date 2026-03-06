@@ -8,11 +8,15 @@ def send_date_and_time(sock):
     date_time = result.stdout
     sock.sendall(date_time.encode())
 
-def send_uptime():
+def send_uptime(sock):
     result = subprocess.run(['uptime'], capture_output=True, text=True)
-    run_time = result.stdout
-    print(run_time)
-    #sock.sendall(run_time.encode())
+    output = result.stdout.strip()
+
+    words = output.split('up')[1]
+    words = words.split(',')
+    uptime_only = ','.join(words[:2])
+
+    sock.sendall(uptime_only.encode())
 
 
 
