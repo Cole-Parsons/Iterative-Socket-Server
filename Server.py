@@ -51,6 +51,7 @@ port = input('Port: ')
 server = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 server.bind(('0.0.0.0', int(port)))
 server.listen()
+print('listening...')
 
 while True:
     conn, addr = server.accept()
