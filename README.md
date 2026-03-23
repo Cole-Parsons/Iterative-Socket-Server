@@ -35,9 +35,9 @@ The Server supports the following client requests:
 * Spawns multiple threads to simulate concurrent clients  
 * Supports request loads of: 1, 5, 10, 15, 20, 25  
 * Measures:  
-- Individual Turn Around Time  
-- Total Turn Around Time  
-- Average Turn Around Time
+-Individual Turn Around Time  
+-Total Turn Around Time  
+-Average Turn Around Time
 
 ---
 
