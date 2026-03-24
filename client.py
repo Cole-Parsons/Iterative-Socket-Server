@@ -18,7 +18,9 @@ def client_session(host, port, operation, results, index):
         with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
             s.settimeout(5)
             s.connect((host, port))
-            s.sendall(operation.encode())
+            operation_string = OPERATIONS[operation][1]
+            s.sendall(operation_string.encode())
+
 
             response = b""
             while True:
@@ -133,28 +135,34 @@ def main():
 
     total = 0
     successful = 0
+
     print(f"\n--- Results ---")
-    print(f"{'Client':<10} {'Turn-around Time'}")
-    print("-" * 30)
 
     for i, result in enumerate(results):
         if result is None:
-            print(f"   {i + 1}:<8 FAILED")
+            print(f"Client {i + 1:<3} FAILED")
         else:
             response, elapsed = result
-            print(f"    {i+1:<8} {elapsed*1000:.2f}ms")
+
+            print(f"\nClient {i + 1}")
+            print(f"Turn-around Time: {elapsed*1000:.2f} ms")
+            print("Response from server:")
+            print(response.strip())
+            print("-" * 40)
+
             total += elapsed
             successful += 1
-    
-    average = total / num_clients
 
     if successful > 0:
+        average = total / successful
+
         print("-" * 30)
-        print(f"Total:      {total*1000:.4f}ms")
-        print(f"Average:    {average*1000:.4f}ms")
+        print(f"Total:      {total*1000:.4f} ms")
+        print(f"Average:    {average*1000:.4f} ms")
         print(f"({successful}/{num_clients} clients succeeded)")
     else:
         print("No successful connections.")
+
 
 if __name__ == "__main__":
     main()
