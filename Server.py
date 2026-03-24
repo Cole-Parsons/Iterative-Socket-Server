@@ -64,11 +64,11 @@ while True:
         send_uptime(conn)
     elif client_command == 'memory use':
         send_memory_use(conn)
-    elif client_command == 'netstats':
+    elif client_command == 'netstat':
         send_netstats(conn)
     elif client_command == 'running processes':
         send_running_processes(conn)
-    elif client_command == 'users':
+    elif client_command == 'current users':
         send_connected_users(conn)
     else:
         conn.sendall('Invalid option'.encode())
